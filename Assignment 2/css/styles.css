@@ -1,0 +1,46 @@
+/* Element selectors */
+/* apply styling anything write ebtween {} will only apply to h1
+this writes one set of rule - needs semicolon to separate rules 
+- if same across all things*/
+
+h1 {
+    color:blue;
+}
+
+/* Class selector - 
+.name to know it is a class*/
+
+.redpara {
+    color:red;
+    border: 1 px solid red;
+}
+
+
+/* ID selector - can only use for unique elements - ie. unique button
+need a hash to recognise as a uniqe id
+css doesnt knw how many times id has been used - cant let you know code is invalid*/
+#uniquepara {
+    color:green;
+}
+
+/* write css as a style attribute - inline ie <p style="color:pink;"> 
+kind of like hard coding 
+not recommended unless use once
+
+FONTS - go to fonts google website 
+    - type in something and see how itll look in diff font styles
+    - choose particular font 
+    - click get font 
+    dowload = give u a lot of font styles
+    - get embed code 
+        give you link 
+
+    when you have anything external - put it on top of your own file/link
+    word wrap
+    only copy font family line in their example code 
+
+    content - use sans font for consistency 
+
+Purecss download 
+    - go to your web page and inspect and right click on purecss link to check
+    if working right 

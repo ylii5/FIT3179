@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Childcare Centres in Australia",
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "mercator"},
+  "layer": [
+    {
+      "data": { "url": "data/trial-2.json", "format": { "type": "json", "property": "features" } },
+      "mark": { "type": "geoshape", "fill": "#f2f2f2f2", "stroke": "white", "strokeWidth": 0.5 }
+    },
+    {
+      "data": { "url": "data/childcare-centres.csv" },
+      "transform": [
+        { "calculate": "(datum.longitude != null) ? toNumber(datum.longitude) : ((datum.lon != null) ? toNumber(datum.lon) : ((datum.LONGITUDE != null) ? toNumber(datum.LONGITUDE) : toNumber(datum.Longitude)))", "as": "lon" },
+        { "calculate": "(datum.latitude  != null) ? toNumber(datum.latitude)  : ((datum.lat != null) ? toNumber(datum.lat)  : ((datum.LATITUDE  != null) ? toNumber(datum.LATITUDE)  : toNumber(datum.Latitude)))",  "as": "lat" },
+        { "filter": "isValid(datum.lon) && isValid(datum.lat)" },
+        { "filter": "datum.lon >= 110 && datum.lon <= 155 && datum.lat >= -45 && datum.lat <= -10" }
+      ],
+      "mark": { "type": "circle", "opacity": 0.9, "stroke": "white", "strokeWidth": 0.7, "tooltip": true },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "size": { "value": 60 },
+        "color": { "value": "#377eb8" },
+        "tooltip": [
+          { "field": "centre_name", "title": "Centre" },
+          { "field": "addr", "title": "Address" },
+          { "field": "link", "title": "Website" }
+        ],
+        "href": { "field": "link" }
+      }
+    }
+  ]
+}
