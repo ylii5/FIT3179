@@ -15,7 +15,7 @@
     h2 { margin-top: 32px; color: #34495e; }
   .chart-container { margin: 32px 0; max-width: 100%; overflow: visible; }
   .dashboard-section > .flex-charts { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
-  .flex-charts > div { flex: 1 1 350px; min-width: 280px; box-sizing: border-box; }
+  .flex-charts > div { flex: 1 1 400px; min-width: 320px; box-sizing: border-box; }
     p { font-size: 1.1em; color: #444; line-height: 1.7; }
     .spacer { height: 48px; }
   </style>
@@ -61,13 +61,13 @@
         </p>
       </div>
       <div>
-        <h2>Childcare Centre Distribution (Placeholder)</h2>
+        <h2>ECEC Contact Staff by Qualification and State/Territory</h2>
         <p>
-          This bar chart could show the number of childcare centres by state, or other relevant metrics.
+          This grouped bar chart shows the number of ECEC contact staff in each state/territory, broken down by qualification level.
         </p>
-        <div id="bar-chart" class="chart-container"></div>
+        <div id="education-grouped-bar-chart" class="chart-container"></div>
         <p>
-          Analysis: Placeholder for future commentary on centre distribution and accessibility.
+          Analysis: The chart highlights differences in qualification levels across states, with most staff holding relevant diplomas, but some states showing higher counts of unspecified qualifications.
         </p>
       </div>
     </div>
@@ -96,36 +96,12 @@
         vegaEmbed('#subsidy-bar-chart', spec, {actions: false});
       });
 
-    // Placeholder bar chart (smaller width)
-    const barSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "description": "Placeholder bar chart",
-      "width": 200,
-      "height": 200,
-      "data": {
-        "values": [
-          {"state": "NSW", "centres": 1200},
-          {"state": "VIC", "centres": 1100},
-          {"state": "QLD", "centres": 900},
-          {"state": "WA", "centres": 700},
-          {"state": "SA", "centres": 600},
-          {"state": "TAS", "centres": 200},
-          {"state": "ACT", "centres": 150},
-          {"state": "NT", "centres": 100}
-        ]
-      },
-      "mark": "bar",
-      "encoding": {
-        "x": {"field": "state", "type": "ordinal", "title": "State"},
-        "y": {"field": "centres", "type": "quantitative", "title": "Number of Centres"},
-        "color": {"field": "state", "type": "nominal"},
-        "tooltip": [
-          {"field": "state", "title": "State"},
-          {"field": "centres", "title": "Number of Centres"}
-        ]
-      }
-    };
-    vegaEmbed('#bar-chart', barSpec, {actions: false});
+    // Education qualification grouped bar chart (from education.csv)
+    fetch('education_qual_grouped_bar.vg.json')
+      .then(response => response.json())
+      .then(spec => {
+        vegaEmbed('#education-grouped-bar-chart', spec, {actions: false});
+      });
   </script>
 </body>
 </html>
