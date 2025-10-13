@@ -1,0 +1,131 @@
+
+<!doctype html>
+<html>
+<head>
+  <title>Childcare in Australia Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; }
+    .dashboard-section { max-width: 1000px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 32px; overflow: hidden; }
+    h1 { text-align: center; margin-top: 40px; font-size: 2.5em; color: #2c3e50; }
+    h2 { margin-top: 32px; color: #34495e; }
+  .chart-container { margin: 32px 0; max-width: 100%; overflow: visible; }
+  .dashboard-section > .flex-charts { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .flex-charts > div { flex: 1 1 350px; min-width: 280px; box-sizing: border-box; }
+    p { font-size: 1.1em; color: #444; line-height: 1.7; }
+    .spacer { height: 48px; }
+  </style>
+</head>
+<body>
+  <h1>Childcare in Australia: Data Dashboard</h1>
+  <div class="dashboard-section">
+    <h2>Overview</h2>
+    <p>
+      This dashboard presents key insights into childcare costs and subsidies across Australia. Scroll down to explore interactive maps, time trends, and other visualisations, with commentary and analysis throughout.
+    </p>
+  </div>
+  <div class="dashboard-section">
+    <h2>Average Childcare Cost by State</h2>
+    <p>
+      The map below shows the average weekly childcare fee in each Australian state. Hover over a state to see details.
+    </p>
+    <div id="map-chart" class="chart-container"></div>
+    <p>
+      Analysis: Childcare costs vary significantly by state, with some regions showing higher average fees. This may reflect differences in demand, supply, and local policy.
+    </p>
+  </div>
+  <div class="dashboard-section">
+    <h2>Childcare Subsidy Over Time</h2>
+    <p>
+      The line graph below tracks the total childcare subsidy provided by the government over recent quarters.
+    </p>
+    <div id="line-chart" class="chart-container"></div>
+    <p>
+      Analysis: Subsidy amounts fluctuate each quarter, reflecting policy changes and demand. The highest subsidy was in September 2024, with a dip in March 2025.
+    </p>
+  </div>
+  <div class="dashboard-section">
+    <div class="flex-charts">
+      <div>
+        <h2>Subsidy Breakdown by Service Type</h2>
+        <p>
+          The bar chart shows the total childcare subsidy distributed to each service type in the most recent period.
+        </p>
+        <div id="subsidy-bar-chart" class="chart-container"></div>
+        <p>
+          Analysis: Centre-based Day Care receives the largest share of subsidies, followed by Outside School Hours Care. In Home Care receives the least, reflecting its smaller scale.
+        </p>
+      </div>
+      <div>
+        <h2>Childcare Centre Distribution (Placeholder)</h2>
+        <p>
+          This bar chart could show the number of childcare centres by state, or other relevant metrics.
+        </p>
+        <div id="bar-chart" class="chart-container"></div>
+        <p>
+          Analysis: Placeholder for future commentary on centre distribution and accessibility.
+        </p>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Map chart
+    fetch('fee_chloropleth_map.vg.json')
+      .then(response => response.json())
+      .then(spec => {
+        vegaEmbed('#map-chart', spec, {actions: false});
+      });
+
+    // Line chart (subsidy over time)
+    fetch('subsidy_line_chart.vg.json')
+      .then(response => response.json())
+      .then(spec => {
+        vegaEmbed('#line-chart', spec, {actions: false});
+      });
+
+    // Subsidy breakdown bar chart (smaller width)
+    fetch('subsidy_breakdown_bar.vg.json')
+      .then(response => response.json())
+      .then(spec => {
+        spec.width = 400;
+        spec.height = 300;
+        vegaEmbed('#subsidy-bar-chart', spec, {actions: false});
+      });
+
+    // Placeholder bar chart (smaller width)
+    const barSpec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Placeholder bar chart",
+      "width": 200,
+      "height": 200,
+      "data": {
+        "values": [
+          {"state": "NSW", "centres": 1200},
+          {"state": "VIC", "centres": 1100},
+          {"state": "QLD", "centres": 900},
+          {"state": "WA", "centres": 700},
+          {"state": "SA", "centres": 600},
+          {"state": "TAS", "centres": 200},
+          {"state": "ACT", "centres": 150},
+          {"state": "NT", "centres": 100}
+        ]
+      },
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "state", "type": "ordinal", "title": "State"},
+        "y": {"field": "centres", "type": "quantitative", "title": "Number of Centres"},
+        "color": {"field": "state", "type": "nominal"},
+        "tooltip": [
+          {"field": "state", "title": "State"},
+          {"field": "centres", "title": "Number of Centres"}
+        ]
+      }
+    };
+    vegaEmbed('#bar-chart', barSpec, {actions: false});
+  </script>
+</body>
+</html>
