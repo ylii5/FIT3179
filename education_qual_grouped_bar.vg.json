@@ -1,0 +1,57 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Grouped bar chart of ECEC staff qualifications by state/territory.",
+  "data": {
+    "values": [
+      {"State": "NSW", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 34741},
+      {"State": "NSW", "Qualification": "Qualifications specified (c)", "Count": 47607},
+      {"State": "NSW", "Qualification": "Qualifications not specified", "Count": 1725},
+      {"State": "VIC", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 28309},
+      {"State": "VIC", "Qualification": "Qualifications specified (c)", "Count": 37251},
+      {"State": "VIC", "Qualification": "Qualifications not specified", "Count": 2015},
+      {"State": "QLD", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 24026},
+      {"State": "QLD", "Qualification": "Qualifications specified (c)", "Count": 32632},
+      {"State": "QLD", "Qualification": "Qualifications not specified", "Count": 2884},
+      {"State": "SA", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 6208},
+      {"State": "SA", "Qualification": "Qualifications specified (c)", "Count": 7922},
+      {"State": "SA", "Qualification": "Qualifications not specified", "Count": 905},
+      {"State": "WA", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 8144},
+      {"State": "WA", "Qualification": "Qualifications specified (c)", "Count": 10764},
+      {"State": "WA", "Qualification": "Qualifications not specified", "Count": 563},
+      {"State": "TAS", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 1519},
+      {"State": "TAS", "Qualification": "Qualifications specified (c)", "Count": 2069},
+      {"State": "TAS", "Qualification": "Qualifications not specified", "Count": 54},
+      {"State": "NT", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 1008},
+      {"State": "NT", "Qualification": "Qualifications specified (c)", "Count": 1441},
+      {"State": "NT", "Qualification": "Qualifications not specified", "Count": 70},
+      {"State": "ACT", "Qualification": "Certificate III/IV, Diploma or Advanced Diploma", "Count": 2430},
+      {"State": "ACT", "Qualification": "Qualifications specified (c)", "Count": 3186},
+      {"State": "ACT", "Qualification": "Qualifications not specified", "Count": 189}
+    ]
+  },
+  "width": 400,
+  "height": 300,
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "State",
+      "type": "nominal",
+      "axis": {"title": "State/Territory"}
+    },
+    "y": {
+      "field": "Count",
+      "type": "quantitative",
+      "axis": {"title": "Number of Contact Staff"}
+    },
+    "color": {
+      "field": "Qualification",
+      "type": "nominal",
+      "legend": {"title": "Qualification Level"}
+    },
+    "xOffset": {"field": "Qualification"}
+  },
+  "config": {
+    "bar": {"cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3}
+  },
+  "title": "ECEC Contact Staff by Qualification and State/Territory"
+}

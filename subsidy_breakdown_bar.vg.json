@@ -1,0 +1,24 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Breakdown of childcare subsidies by service type",
+  "width": 600,
+  "height": 350,
+  "data": {
+    "values": [
+      {"Service type": "Centre-based Day Care", "Total subsidy": 3282275},
+      {"Service type": "Family Day Care", "Total subsidy": 192684},
+      {"Service type": "In Home Care", "Total subsidy": 8634},
+      {"Service type": "Outside School Hours Care", "Total subsidy": 372738}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "Service type", "type": "nominal", "title": "Service Type"},
+    "y": {"field": "Total subsidy", "type": "quantitative", "title": "Total Subsidy ($'000)"},
+    "color": {"field": "Service type", "type": "nominal"},
+    "tooltip": [
+      {"field": "Service type", "title": "Service Type"},
+      {"field": "Total subsidy", "title": "Total Subsidy ($'000)", "format": ",.0f"}
+    ]
+  }
+}
