@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Average Childcare Cost by State",
+  "width": 900,
+  "height": 560,
+  "projection": {"type": "mercator"},
+  "data": {
+    "url": "data/states.json",
+    "format": { "type": "topojson", "feature": "STE_2021_AUST_GDA2020" }
+  },
+  "transform": [
+    { "calculate": "datum.properties.STE_CODE21", "as": "state_code" },   
+      { "calculate": "datum.properties.STE_NAME21", "as": "state_name" },
+      {
+        "lookup": "state_code",
+        "from": {
+          "data": { "url": "data/avg_fees.csv" },
+          "key": "state",
+          "fields": ["Total"]
+        }
+      },
+      { "calculate": "replace(datum.Total, '$', '')", "as": "fee_stripped" },
+      { "calculate": "toNumber(datum.fee_stripped)", "as": "avg_fee_num" }
+  ],
+  "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
+  "encoding": {
+    "color": { "field": "avg_fee_num", "type": "quantitative", "title": "Avg weekly fee ($)" },
+    "tooltip": [
+      {"field": "state_name", "title": "State"},
+      {"field": "avg_fee_num", "title": "Avg weekly fee ($)", "format": ".2f"}
+    ]
+  }
+}

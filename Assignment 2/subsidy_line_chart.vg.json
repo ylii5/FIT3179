@@ -1,0 +1,24 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Total childcare subsidy over time",
+  "width": 600,
+  "height": 300,
+  "data": {
+    "values": [
+      {"date": "Jun. 2024", "subsidy": 3650579},
+      {"date": "Sep. 2024", "subsidy": 3907805},
+      {"date": "Dec. 2024", "subsidy": 3885937},
+      {"date": "Mar. 2025", "subsidy": 3592973},
+      {"date": "Jun. 2025", "subsidy": 3856331}
+    ]
+  },
+  "mark": "line",
+  "encoding": {
+    "x": {"field": "date", "type": "ordinal", "title": "Quarter"},
+    "y": {"field": "subsidy", "type": "quantitative", "title": "Total Subsidy ($'000)"},
+    "tooltip": [
+      {"field": "date", "title": "Quarter"},
+      {"field": "subsidy", "title": "Total Subsidy ($'000)", "format": ",.0f"}
+    ]
+  }
+}
