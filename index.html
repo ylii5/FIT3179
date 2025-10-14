@@ -74,21 +74,21 @@
   </div>
   <script>
     // Map chart
-    fetch('fee_chloropleth_map.vg.json')
+  fetch('./fee_chloropleth_map.vg.json')
       .then(response => response.json())
       .then(spec => {
         vegaEmbed('#map-chart', spec, {actions: false});
       });
 
     // Line chart (subsidy over time)
-    fetch('subsidy_line_chart.vg.json')
+  fetch('./subsidy_line_chart.vg.json')
       .then(response => response.json())
       .then(spec => {
         vegaEmbed('#line-chart', spec, {actions: false});
       });
 
     // Subsidy breakdown bar chart (smaller width)
-    fetch('subsidy_breakdown_bar.vg.json')
+  fetch('./subsidy_breakdown_bar.vg.json')
       .then(response => response.json())
       .then(spec => {
         spec.width = 400;
@@ -97,7 +97,7 @@
       });
 
     // Education qualification grouped bar chart (from education.csv)
-    fetch('education_qual_grouped_bar.vg.json')
+  fetch('./education_qual_grouped_bar.vg.json')
       .then(response => response.json())
       .then(spec => {
         vegaEmbed('#education-grouped-bar-chart', spec, {actions: false});
