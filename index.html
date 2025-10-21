@@ -9,8 +9,11 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; }
-    .dashboard-section { max-width: 1000px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 32px; overflow: hidden; }
+    body { font-family: Arial, sans-serif; margin: 0; background-image: url('data/kinder.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; }
+    .dashboard-section { max-width: 1000px; margin: 40px auto; background: #b7c9e2; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 32px; overflow: hidden; }
     h1 { text-align: center; margin-top: 40px; font-size: 2.5em; color: #2c3e50; }
     h2 { margin-top: 32px; color: #34495e; }
   .chart-container { margin: 32px 0; max-width: 100%; overflow: visible; }
@@ -18,6 +21,13 @@
   .flex-charts > div { flex: 1 1 400px; min-width: 320px; box-sizing: border-box; }
     p { font-size: 1.1em; color: #444; line-height: 1.7; }
     .spacer { height: 48px; }
+
+  /* ...your existing styles... */
+  .flex-charts .wide { flex: 1 1 100%; min-width: 100%; }
+  .chart-container { width: 100%; max-width: 100%; }
+
+ 
+</style>
   </style>
 </head>
 <body>
@@ -28,6 +38,7 @@
       This dashboard presents key insights into childcare costs and subsidies across Australia. Scroll down to explore interactive maps, time trends, and other visualisations, with commentary and analysis throughout.
     </p>
   </div>
+  
   <div class="dashboard-section">
     <h2>Average Childcare Cost by State</h2>
     <p>
@@ -72,6 +83,23 @@
       </div>
     </div>
   </div>
+
+  <div class="dashboard-section">
+  <h2>Victoria's Birthrate (Total Fertility Rate)</h2>
+  <div id="birthrate-map" class="chart-container"></div>
+</div>
+
+<div class="dashboard-section">
+  <h2>Services vs Children by Region</h2>
+  <p>Each dot is a region. Quadrants are based on median services and children. Brush to highlight, use the dropdown to focus a state.</p>
+  <div id="svc-vs-child" class="chart-container"></div>
+</div>
+
+<div class="dashboard-section">
+  <h2>Average Childcare Fee</h2>
+  <div id="heat-map" class="chart-container"></div>
+</div>
+
   <script>
     // Map chart
   fetch('./fee_chloropleth_map.vg.json')
@@ -80,15 +108,8 @@
         vegaEmbed('#map-chart', spec, {actions: false});
       });
 
-    // Line chart (subsidy over time)
-  fetch('./subsidy_line_chart.vg.json')
-      .then(response => response.json())
-      .then(spec => {
-        vegaEmbed('#line-chart', spec, {actions: false});
-      });
-
     // Subsidy breakdown bar chart (smaller width)
-  fetch('./subsidy_breakdown_bar.vg.json')
+  fetch('./subsidy_bar.vg.json')
       .then(response => response.json())
       .then(spec => {
         spec.width = 400;
@@ -96,12 +117,14 @@
         vegaEmbed('#subsidy-bar-chart', spec, {actions: false});
       });
 
-    // Education qualification grouped bar chart (from education.csv)
-  fetch('./education_qual_grouped_bar.vg.json')
-      .then(response => response.json())
-      .then(spec => {
-        vegaEmbed('#education-grouped-bar-chart', spec, {actions: false});
-      });
-  </script>
+  // Where you want the map to appear:
+fetch('./birthrate.vg.json')
+  .then(r => r.json())
+  .then(spec => vegaEmbed('#birthrate-map', spec, { actions: false }));
+
+  fetch('./heatmap.vg.json')
+  .then(r => r.json())
+  .then(spec => vegaEmbed('#heat-map', spec, { actions: false, renderer: 'canvas' }));
+</script>
 </body>
 </html>

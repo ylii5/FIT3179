@@ -18,16 +18,14 @@
           "key": "state",
           "fields": ["Total"]
         }
-      },
-      { "calculate": "replace(datum.Total, '$', '')", "as": "fee_stripped" },
-      { "calculate": "toNumber(datum.fee_stripped)", "as": "avg_fee_num" }
+      }
   ],
   "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
   "encoding": {
-    "color": { "field": "avg_fee_num", "type": "quantitative", "title": "Avg weekly fee ($)" },
+    "color": { "field": "Total", "type": "quantitative", "title": "Avg weekly fee ($)" },
     "tooltip": [
       {"field": "state_name", "title": "State"},
-      {"field": "avg_fee_num", "title": "Avg weekly fee ($)", "format": ".2f"}
+      {"field": "Total", "title": "Avg weekly fee ($)", "format": ".2f"}
     ]
   }
 }
